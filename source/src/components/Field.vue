@@ -1,5 +1,6 @@
 <script setup>
-import { computed, defineProps, ref } from "vue";
+import { computed, defineProps, reactive, ref, inject } from "vue";
+import { setValueChange, valuesKey } from "./FormixProvider";
 
 const props = defineProps({
   as: {
@@ -27,14 +28,11 @@ const component = computed(() => {
   }
   return "input";
 });
-
-const handleChange = (e) => {
-  addFormField(props.name, e.target.value);
-};
+const values = inject(valuesKey);
 </script>
 
 <template>
-  <component :is="component" @input="handleChange" :type="type">
-    <slot v-if="as === 'select'"></slot>
+  <component :is="as" :type="type" :name="name" :value="values[name]" @input="e => values[name] = e.target.value">
+    <slot></slot>
   </component>
 </template>
