@@ -15,19 +15,15 @@ const props = defineProps({
 
 const type = ref("");
 const component = computed(() => {
-  if (props.as === "textarea") {
-    return "textarea";
+  for (let i = 0; i < props.as.length; i++) {
+    if (props.as[i] === props.as[i].toUpperCase()) {
+      type.value = props.as.slice(i).toLowerCase();
+      return props.as.slice(0, i);
+    }
   }
-  if (props.as === "select") {
-    type.value = null;
-    return "select";
-  }
-  if (props.as === "number") {
-    type.value = "number";
-    return "input";
-  }
-  return "input";
+  return props.as;
 });
+
 const values = inject(valuesKey);
 </script>
 
