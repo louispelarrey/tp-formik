@@ -14,15 +14,6 @@ const props = defineProps({
 });
 
 const type = ref("");
-const component = computed(() => {
-  for (let i = 0; i < props.as.length; i++) {
-    if (props.as[i] === props.as[i].toUpperCase()) {
-      type.value = props.as.slice(i).toLowerCase();
-      return props.as.slice(0, i);
-    }
-  }
-  return props.as;
-});
 
 const values = inject(valuesKey);
 </script>
