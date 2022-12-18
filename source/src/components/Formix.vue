@@ -23,10 +23,11 @@ const values = reactive(initialValues);
 provide(valuesKey, values);
 
 function handleSubmit() {
+  console.log("submit", values); 
   isSubmitted.value = false;
 
   errors.value = validate(values);
-  if (errors.length === 0) {
+  if (errors.value.length === 0) {
     onSubmit(values);
     isSubmitted.value = true;
   }
