@@ -1,6 +1,6 @@
 <script setup>
-import { computed, defineProps, reactive, ref, inject } from "vue";
-import { setValueChange, valuesKey } from "./FormixProvider";
+import { defineProps, ref, inject } from "vue";
+import { valuesKey } from "./FormixProvider";
 
 const props = defineProps({
   as: {
@@ -14,12 +14,17 @@ const props = defineProps({
 });
 
 const type = ref("");
-
 const values = inject(valuesKey);
 </script>
 
 <template>
-  <component :is="as" :type="type" :name="name" :value="values[name]" @input="e => values[name] = e.target.value">
+  <component
+    :is="as"
+    :type="type"
+    :name="name"
+    :value="values[name]"
+    @input="(e) => (values[name] = e.target.value)"
+  >
     <slot></slot>
   </component>
 </template>

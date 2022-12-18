@@ -1,45 +1,50 @@
 <script setup>
-import {reactive, provide } from "vue";
-import { valuesKey, setValueChange } from "./FormixProvider";
+import { reactive, provide, ref } from "vue";
+import { valuesKey } from "./FormixProvider";
 
-const props = defineProps({
+const { initialValues, validate, onSubmit } = defineProps({
   initialValues: {
     type: Object,
     required: true,
   },
   validate: {
-    type: Function,
-    required: false,
+    type: Function
   },
   onSubmit: {
-    type: Event,
-    default: () => {},
+    type: Function,
   },
+
 })
 
-const values = reactive(props.initialValues);
+const errors = ref([]);
+const isSubmitted = ref(false);
+const values = reactive(initialValues);
+
 provide(valuesKey, values);
 
-function handleChange(event) {
-  console.log("Handle change trigger", event.target.value);
-  values.value = event.target.value;
-  setValueChange(props.name, event.target.value);
+function handleSubmit() {
+  isSubmitted.value = false;
+
+  errors.value = validate(values);
+  if (errors.length === 0) {
+    onSubmit(values);
+    isSubmitted.value = true;
+  }
 }
-
-function handleSubmit(event) {
-  event.preventDefault();
-  props.onSubmit(values);
-}
-
-
 </script>
 
 <template>
   <p>{{ JSON.stringify(values) }}</p>
-    <slot 
-      :values="values" 
-      :handleChange="handleChange"
-      :handleSubmit="handleSubmit"
-    ></slot>
-  
+  <form @submit.prevent="handleSubmit">
+    <p v-if="errors.length > 0">Errors: </p>
+    <ul>
+      <li v-for="error in errors">
+        {{ error.level }}
+      </li>
+    </ul>
+    <slot></slot>
+  </form>
+  <p v-if="isSubmitted">
+    Form submitted
+  </p>
 </template>
