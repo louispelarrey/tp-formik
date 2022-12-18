@@ -5,11 +5,9 @@ import { valuesKey } from "./FormixProvider";
 const props = defineProps({
   as: {
     type: String,
-    default: "text",
   },
   name: {
     type: String,
-    required: true,
   },
 });
 
@@ -19,7 +17,7 @@ const values = inject(valuesKey);
 
 <template>
   <component
-    :is="as"
+    :is="as || 'input'"
     :type="type"
     :name="name"
     :value="values[name]"

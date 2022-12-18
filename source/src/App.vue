@@ -8,8 +8,9 @@ import { reactive, inject, provide } from 'vue';
 
 const initialValues = reactive({
   level: 0,
-  username: "Default Username",
-  bio: "Default Bio"
+  age: 2,
+  bio: "Default Bio",
+  birth: "2021-01-01"
 });
 
 let validateSchema = yup.object({
@@ -41,8 +42,9 @@ const handleSubmit = (values) => {
         <option>2</option>
         <option>3</option>
       </Field>
-      <Field name="username" as="text" />
       <Field name="bio" as="textarea" />
+      <Field name="age" type="number" />
+      <Field name="birth" type="date" />
       <Field as="button" @click="onSubmit">Submit</Field>
   </Formix>
 </template>
