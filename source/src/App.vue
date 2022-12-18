@@ -30,7 +30,7 @@ const validate = (values) => {
 };
 
 const handleSubmit = (values) => {
-  console.log("submit", values);
+  console.log("App.vue Submit", values);
 }
 </script>
 

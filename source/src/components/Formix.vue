@@ -23,7 +23,7 @@ const values = reactive(initialValues);
 provide(valuesKey, values);
 
 function handleSubmit() {
-  console.log("submit", values); 
+  console.log("Formix.vue Submit", values); 
   isSubmitted.value = false;
 
   errors.value = validate(values);
