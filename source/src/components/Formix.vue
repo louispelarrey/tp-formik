@@ -23,7 +23,7 @@ const values = reactive(initialValues);
 provide(valuesKey, values);
 
 function handleSubmit() {
-  console.log("Formix.vue Submit", values); 
+  console.log("Formix.vue Submit", values);
   isSubmitted.value = false;
 
   errors.value = validate(values);
@@ -35,17 +35,31 @@ function handleSubmit() {
 </script>
 
 <template>
-  <p>{{ JSON.stringify(values) }}</p>
   <form @submit.prevent="handleSubmit">
-    <p v-if="errors.length > 0">Errors: </p>
-    <ul>
-      <li v-for="error in errors">
-        {{ error.level }}
-      </li>
-    </ul>
     <slot></slot>
+    <div v-if="errors.length > 0" class="submitError">
+      Errors:
+      <ul>
+        <li v-for="error in errors">
+          {{ error.level }}
+        </li>
+      </ul>
+    </div>
+    <div v-if="isSubmitted" class="submitSuccess">
+        Success : Form is submitted
+    </div>
+
+    
   </form>
-  <p v-if="isSubmitted">
-    Form submitted
-  </p>
+
+  <div>
+    <!--Afficher ces informations 1 par 1 <p>{{ JSON.stringify(values) }}</p>-->
+    <div class="infosElement"> 
+      <p>Live informations :</p>
+      <p>Level : {{ values.level }}</p>
+      <p>Bio : {{ values.bio }}</p>
+    </div>
+  </div>
+  
+
 </template>

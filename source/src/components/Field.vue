@@ -16,13 +16,8 @@ const values = inject(valuesKey);
 </script>
 
 <template>
-  <component
-    :is="as || 'input'"
-    :type="type"
-    :name="name"
-    :value="values[name]"
-    @input="(e) => (values[name] = e.target.value)"
-  >
+  <component :is="as || 'input'" :type="type" :name="name" :value="values[name]"
+    @input="(e) => (values[name] = e.target.value)">
     <slot></slot>
   </component>
 </template>
